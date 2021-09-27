@@ -1,26 +1,48 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+ <div class="container">    
+    <Category title="游戏">  
+       <template v-slot:[dynamicSlotName]="obj">
+        <ol>
+          <li v-for="(g,index) in obj.games" :key="index">{{g}}</li>
+        </ol>
+       </template>
+    </Category>
+    <button style="width:120px" @click="change">点这切换</button>
+ </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Category from './components/category.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Category
+  },
+  data(){
+    return{
+      dynamicSlotName:'1'
+    }
+  },
+  methods:{
+    change(){
+        if(this.dynamicSlotName=='1'){
+          this.dynamicSlotName='2';
+        }else
+          this.dynamicSlotName='1';
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  .container{
+    display: flex;
+    flex-direction: column;
+  }
+  /* 也可以写在组件中 */
+  img,video{
+    width: 200px;
+    height: 200px;
+  }
 </style>
